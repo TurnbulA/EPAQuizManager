@@ -1,0 +1,61 @@
+﻿@page
+@model QuizManager.Pages.Answers.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Answer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Answer.AnswerId" />
+            <div class="form-group">
+                <label asp-for="Answer.AnswerContent" class="control-label"></label>
+                <input asp-for="Answer.AnswerContent" class="form-control" />
+                <span asp-validation-for="Answer.AnswerContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.AnswerType" class="control-label"></label>
+                <input asp-for="Answer.AnswerType" class="form-control" />
+                <span asp-validation-for="Answer.AnswerType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.QuestionContent" class="control-label"></label>
+                <input  asp-for="Answer.QuestionContent" class="form-control questionContent" readonly />
+                <span asp-validation-for="Answer.QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.QuestionRef" class="control-label"></label>
+                <input asp-for="Answer.QuestionRef" class="form-control questionRef" readonly />
+                <span asp-validation-for="Answer.QuestionRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="return btn btn-light" asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    var questionContent = document.querySelector(".questionContent");
+    var questionRef = document.querySelector(".questionRef");
+    var returnLink = document.querySelector(".return");
+    window.addEventListener("load", () => {
+        questionContent.value = sessionStorage.getItem("questionContent");
+        questionRef.value = sessionStorage.getItem("questionRef");
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
+    });
+</script>

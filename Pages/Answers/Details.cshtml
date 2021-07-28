@@ -1,0 +1,44 @@
+﻿@page
+@model QuizManager.Pages.Answers.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Answer</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Answer.AnswerContent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Answer.AnswerContent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Answer.AnswerType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Answer.AnswerType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Answer.QuestionContent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Answer.QuestionContent)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Answer.AnswerId">Edit</a> |
+    <a class="return btn btn-light" asp-page="./Index">Back to List</a>
+</div>
+
+<script>
+    var returnLink = document.querySelector(".return");
+    window.addEventListener('load', e => {
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
+    });
+</script>

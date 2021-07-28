@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QuizManager</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">QuizManager</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login/Index">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Quizzes/Index">Quiz List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Questions/Index">Question List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Answers/Index">Answer List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Accounts</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-link user"></div>
+            </div>
+        </nav>
+        
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - QuizManager - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        window.addEventListener("load", () => {
+            user = localStorage.getItem("username");
+            usertext = document.querySelector(".user")
+            if (user == null) {
+                usertext.innerHTML += "";
+            }
+            else {
+                usertext.innerHTML += user;
+            }
+            
+        })
+        document.querySelector(".user").addEventListener("click", () => {
+            if (confirm("Logout?")) {
+                localStorage.clear();
+                window.location.href = "..";
+
+            }
+        })
+        document.querySelectorAll(".nav-link").forEach(button => {
+            rights = localStorage.getItem("rights");
+            status = localStorage.getItem("status");
+            button.addEventListener("click", (e) => {
+                text = e.target.innerHTML;
+                if (button.innerHTML == "Login" && status == "Active") {
+                    e.preventDefault()
+                    alert("You are already logged in");
+                }
+                if (button.innerHTML == "Login") {
+                    return;
+                }
+                if (status == "null") {
+                    e.preventDefault();
+                    alert("You need to be logged in to access this")
+                }
+                if (text == "Accounts" && rights != "admin") {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges")                    
+                }
+                if (text == "Answer List" && rights =="read") {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
+                }
+                if (text == "Question List" && rights == "read") {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
+                }
+            })
+        })
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

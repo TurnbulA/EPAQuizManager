@@ -1,0 +1,58 @@
+﻿@page
+@model QuizManager.Pages.Questions.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" onsubmit="removeSpaces()">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Question.QuestionContent" class="control-label"></label>
+                <input asp-for="Question.QuestionContent" class="form-control questionInput" />
+                <span asp-validation-for="Question.QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuizName" class="control-label"></label>
+                <input asp-for="Question.QuizName" class="form-control quizName" readonly/>
+                <span asp-validation-for="Question.QuizName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuizRef" class="control-lable"></label>
+                <input asp-for="Question.QuizRef" class="form-control quizRef" readonly/>
+                <span asp-validation-for="Question.QuizRef"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="return btn btn-light" asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    quizName = document.querySelector(".quizName");
+    quizRef = document.querySelector(".quizRef");
+    returnLink = document.querySelector(".return");
+    window.addEventListener("load", () => {
+        if (sessionStorage.length >= 1) {
+            returnLink.href = `/Quizzes/Details?id=${sessionStorage.getItem("quizRef")}`;
+            quizName.value = sessionStorage.getItem("quizName");
+            quizRef.value = sessionStorage.getItem("quizRef");
+            sessionStorage.removeItem("quizName");
+            sessionStorage.removeItem("quizRef");
+        }
+    });
+</script>

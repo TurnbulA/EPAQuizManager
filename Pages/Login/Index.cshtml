@@ -1,0 +1,95 @@
+﻿@page
+@model QuizManager.Pages.Login.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Login</h1>
+<form class="login">
+    <div class="form-group">
+        <label>Username</label>
+        <input class="userInput" />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="passInput" />
+    </div>
+    <div class="form-group">
+        <a class="btn btn-primary submit" asp-page="/Index">Login</a>
+    </div>
+</form>
+
+
+
+@foreach (var item in Model.User)
+{
+    <p class="user" style="display:none;">@Html.DisplayFor(modelItem => item.Username),<span class="pass">@Html.DisplayFor(modelItem => item.Password)</span>,@Html.DisplayFor(modelItem => item.Access)</p>
+}
+
+<script>
+
+    function encrypt(text) {
+        encryption = []
+        option = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        array = Array.from(text.toUpperCase());
+        for (i = 0; i < option.length; i++) {
+            if (array.includes(option[i])) {
+                x = (i +1) * 5
+                if (x > option.length) {
+                    x = 1 + i;
+                    encryption.push(option[x]);
+                }
+                else {
+                    encryption.push(option[x]);
+                }
+            }
+        }
+        return encryption.toString().split(",").join("");
+    }
+    window.addEventListener("load", () => {
+        passwords = document.querySelectorAll(".pass")
+        passwords.forEach(pass => {
+            scramble = encrypt(pass.innerHTML);
+            pass.innerHTML = scramble;
+        })
+    })
+    document.querySelector(".submit").addEventListener("click", e => {
+        var userStatus = false;
+        var passStatus = false;
+        userInput = document.querySelector(".userInput").value;
+        passInput = document.querySelector(".passInput").value;
+        checkPass = encrypt(passInput)
+        var access;
+        users = [...document.querySelectorAll(".user")];
+        passwords = document.querySelectorAll(".pass");
+        users.forEach(user => {
+            
+            user = user.innerHTML.split(",");
+            console.log(userInput)
+            if (user[0] == userInput) {
+                userStatus = true
+                access = user[2]
+            }
+        })
+        passwords.forEach(pass => {
+            if (pass.innerHTML == checkPass) {
+                passStatus = true;
+            }
+        })
+        if (userStatus == true && passStatus == true) {
+            localStorage.setItem("username", `${userInput}`)
+            localStorage.setItem("rights", `${access}`)
+            localStorage.setItem("status", "Active")
+        }
+        else {
+            e.preventDefault();
+        }
+        if (userStatus == false) {
+            alert("Incorrect Username please try again")
+        }
+        if (passStatus == false) {
+            alert("Incorrect Password please try again")
+        }
+    })
+</script>

@@ -1,0 +1,104 @@
+﻿@page
+@model QuizManager.Pages.Questions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Questions</h1>
+
+<form asp-page="./Index" method="get" class="searchForm">
+    <div class="form-actions no-color">
+        <p>
+            Search:
+            <input type="text" name="SearchString" class="searchInput" value="@Model.CurrentFilter"/>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-page="./Index">Show Full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder ="@Model.QuestionSort">
+                    @Html.DisplayNameFor(model => model.Questions[0].QuestionContent)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.QuizSort">
+                    @Html.DisplayNameFor(model => model.Questions[0].QuizName)
+                </a>
+                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Questions) {
+        <tr class="questionItem">
+            <td class="questionName">
+                @Html.DisplayFor(modelItem => item.QuestionContent)
+            </td>
+            <td class="quizName">
+                @Html.DisplayFor(modelItem => item.QuizName)
+            </td>
+            <td>
+                <a asp-page="/Answers/Create" class="res newAnswer">Add Answer</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID" class="res">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID" class="res">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID" class="res">Delete</a> |
+                <a asp-page="/Answers/index" class="res btn btn-primary viewAnswer">Veiw Question Answer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    window.addEventListener("load", () => {
+        if ("quizName" in sessionStorage) {
+            quizName = sessionStorage.getItem("quizName").replace(/\s/g, "");
+            searchForm = document.querySelector(".searchForm")
+            searchForm.style.display = "none";
+            questions = [...document.querySelectorAll(".quizName")]
+            console.log(quizName)
+            questions.forEach(item => {
+                if (item.innerHTML.trim() != quizName) {
+                    item.parentNode.style.display = "none"
+                }
+            })            
+        }
+        sessionStorage.clear();   
+    })
+    questionItem = [...document.querySelectorAll(".newAnswer")];
+    questionItem.forEach(item => {
+        item.addEventListener("click", (e) => {
+            parentTarget = e.target.parentNode.parentNode;
+            questionName = parentTarget.querySelector(".questionName").innerHTML;
+            questionName = questionName.trim();
+            quizName = parentTarget.querySelector(".quizName").innerHTML.trim();
+            sessionStorage.setItem("question", `${questionName}`);
+            sessionStorage.setItem("quiz", `${quizName}`);
+        })
+    })
+    viewAnswers = [...document.querySelectorAll(".viewAnswer")]
+    viewAnswers.forEach(item => {
+        item.addEventListener("click", (e) => {
+            parentTarget = e.target.parentNode.parentNode;
+            question = parentTarget.querySelector(".questionName").innerHTML.trim();
+            quiz = parentTarget.querySelector(".quizName").innerHTML.trim();
+            sessionStorage.setItem("question", `${questionName}`);
+            sessionStorage.setItem("quiz", `${quizName}`);
+        })
+    })
+    buttons = document.querySelectorAll(".res")
+    buttons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            rights = localStorage.getItem("rights");
+            if (rights != "admin" && rights != "user") {
+                e.preventDefault();
+                alert("You do not have the correct access for this.\nContact an administrator to upgrade your privilages");
+            }            
+        })
+    })
+</script>

@@ -1,0 +1,73 @@
+﻿@page
+@model QuizManager.Pages.Answers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Answers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer[0].AnswerContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer[0].AnswerType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer[0].QuestionContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer[0].QuizName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Answer) {
+        <tr class="questionAnswer">
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnswerType)
+            </td>
+            <td class="questionName">
+                @Html.DisplayFor(modelItem => item.QuestionContent)
+            </td>
+            <td class="quizName">
+                @Html.DisplayFor(modelItem => item.QuizName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AnswerId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AnswerId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AnswerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    window.addEventListener("load", () => {
+        if ("questionName" in sessionStorage) {
+            questionName = sessionStorage.getItem("questionName").replace(/\s/g, "")
+            if ("quizName" in sessionStorage) {
+                quizName = sessionStorage.getItem("quizName").replace(/\s/g, "")
+                answers = [...document.querySelectorAll(".questionAnswer")]
+                answers.forEach(item => {
+                    question = item.querySelector(".questionName").innerHTML.trim()
+                    quiz = item.querySelector(".quizName").innerHTML.trim()
+                    if (question != questionName) {
+                        item.style.display = "none";
+                        if (quiz != quizName) {
+                            item.style.display = "none";
+                        }
+                    }
+                })                
+            }
+        }
+        sessionStorage.clear();
+    })
+</script>

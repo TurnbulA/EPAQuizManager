@@ -1,0 +1,51 @@
+﻿@page
+@model QuizManager.Pages.Questions.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Question.ID" />
+            <div class="form-group">
+                <label asp-for="Question.QuestionContent" class="control-label"></label>
+                <input asp-for="Question.QuestionContent" class="form-control" />
+                <span asp-validation-for="Question.QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuizName" class="control-label"></label>
+                <input asp-for="Question.QuizName" class="form-control" readonly/>
+                <span asp-validation-for="Question.QuizName" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Question.QuizRef" class="control-label"></label>
+                <input asp-for="Question.QuizRef" class="form-control" readonly/>
+                <span asp-validation-for="Question.QuizRef" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Quizzes/Details" class="return btn btn-light">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    var returnLink = document.querySelector(".return");
+    window.addEventListener('load', e => {
+        returnLink.href = `/Quizzes/Details?id=${@Model.Question.QuizRef}`;
+    });
+</script>
