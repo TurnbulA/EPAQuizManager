@@ -15,12 +15,7 @@ namespace QuizManager.Models
         public string QuizName { get; set; }
         [Display (Name = "Quiz Id")]
         public int QuizRef { get; set; }
-<<<<<<< Updated upstream
         public Quiz Quiz { get; set; }
         public ICollection<Answer> Answers  { get; set; }
-=======
-        //public Quiz Quiz { get; set; }
-        //public ICollection<Answer> Answers  { get; set; }
->>>>>>> Stashed changes
     }
 }

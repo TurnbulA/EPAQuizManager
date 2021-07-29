@@ -20,12 +20,8 @@ namespace QuizManager.Models
         public string QuizName { get; set; }
         [Display (Name = "Question Id")]
         public int QuestionRef { get; set; }
-<<<<<<< Updated upstream
         public Question Question { get; set; }
         public Quiz Quiz { get; set; }
-=======
-        //public Question Question { get; set; }
-        //public Quiz Quiz { get; set; }
->>>>>>> Stashed changes
+
     }
 }

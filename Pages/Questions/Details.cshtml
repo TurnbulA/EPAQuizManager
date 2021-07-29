@@ -25,16 +25,15 @@
         </dd>
     </dl>
     <p>
-<<<<<<< Updated upstream
-        <a asp-page="/Answers/Create">Create a new answer</a>
-=======
         <a asp-page="/Answers/Create" class="create">Create a new Answer</a>
->>>>>>> Stashed changes
     </p>
     <dl>
         <table class="table">
             <thead>
             <tr>
+                <th>
+                    Answer Index
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Answer[0].AnswerContent)
                 </th>
@@ -45,24 +44,11 @@
             </thead>
             <tbody>
             @foreach (var item in Model.Answer) {
-<<<<<<< Updated upstream
-                <tr class="questionAnswer">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AnswerContent)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AnswerType)
-                    </td>
-                    <td>
-                        <a asp-page="/Answers/Edit" asp-route-id="@item.AnswerId">Edit</a> |
-                        <a asp-page="/Answers/Details" asp-route-id="@item.AnswerId">Details</a> |
-                        <a asp-page="/Answers/Delete" asp-route-id="@item.AnswerId">Delete</a>
-                    </td>
-                </tr>
-=======
+                
                 @if (item.QuestionContent == Model.Question.QuestionContent)
                 {
                     <tr class="questionAnswer">
+                        <td class="answerIndex"></td>
                         <td>
                             @Html.DisplayFor(modelItem => item.AnswerContent)
                         </td>
@@ -77,7 +63,6 @@
                     </tr>
                 }
 
->>>>>>> Stashed changes
             }
             </tbody>
         </table>
@@ -92,11 +77,52 @@
     questionContent = document.querySelector(".questionContent").innerHTML.trim();
     questionRef = @Model.Question.ID;
     returnLink = document.querySelector(".return");
+    createButton = document.querySelector(".create");
+    answerIndexes = document.querySelectorAll(".answerIndex");
+    indexOption = ['A', 'B', 'C', 'D', 'E'];
+    pass = 0;
+    fail = 0;
+    alertCount = 0;
     window.addEventListener('load', e => {
         returnLink.href = `/Quizzes/Details?id=${@Model.Question.QuizRef}`;
         sessionStorage.removeItem("questionContent");
         sessionStorage.removeItem("questionRef");
         sessionStorage.setItem("questionContent", questionContent);
         sessionStorage.setItem("questionRef", questionRef);
+        indexCount = 0;
+        answerIndexes.forEach(index => {
+            index.innerHTML = `${indexOption[indexCount]} )`;
+            indexCount += 1;
+        });
+    });
+    function answerTypeCheck() {
+        answerTypes = document.querySelectorAll(".answerType");
+        answerTypes.forEach(answer => {
+            console.log(answer.innerHTML);
+            if (answer.innerHTML.trim() == "Correct") {
+                pass += 1;
+            } else {
+                fail += 1;
+            }
+        });
+    }
+    createButton.addEventListener("click", e => {
+        answerTypeCheck();
+        if (answerTypes.length == 5) {
+            e.preventDefault();
+            window.alert("A question can have a maximum of five questions");
+        }
+        if (pass == 2) {
+            sessionStorage.setItem("answerType", "Incorrect");
+            if (alertCount < 1) {
+                window.alert("A question can only have two correct answers");
+                alertCount += 1;
+            }
+        }
+        if (fail == 4) {
+            sessionStorage.setItem("answerType", "Correct");
+            window.alert("A question needs at least 1 correct answer");
+        }
+
     });
 </script>
