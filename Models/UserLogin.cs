@@ -12,13 +12,14 @@ namespace QuizManager.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LoginId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password error try again")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string InputPassword { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Username error try again")]
         [Display(Name = "Username")]
         public string InputUserName { get; set; }
+        [Required(ErrorMessage = "Access error try again")]
         public string Access { get; set; }
     }
 }

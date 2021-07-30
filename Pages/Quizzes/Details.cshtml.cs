@@ -20,7 +20,7 @@ namespace QuizManager.Pages.Quizzes
         }
         public Quiz Quiz { get; set; }
         public IList<Question> Question { get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id, string sortOrder, string searchString)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {

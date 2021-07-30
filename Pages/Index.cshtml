@@ -12,8 +12,11 @@
 
 <script>
     login = document.querySelector(".login");
-    login.addEventListener("click", e => {
+    window.addEventListener("load", e => {
         localStorage.clear();
+    });
+    login.addEventListener("click", e => {
+        
         sessionStorage.clear();
         window.location.href = "/Users/Index";
     });

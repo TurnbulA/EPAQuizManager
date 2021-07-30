@@ -34,14 +34,17 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.Answer)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.AnswerContent)
-                </td>
-                
-            </tr>
+            @foreach (var item in Model.Answer)
+            {@if (item.QuestionContent == Model.Question.QuestionContent)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.AnswerContent)
+                    </td>
+
+                </tr>
+            }
+
         }
         </tbody>
     </table>
