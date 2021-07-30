@@ -20,7 +20,7 @@ namespace QuizManager.Pages.Users
 {
     public class IndexModel : PageModel
     {
-        static string Hash(string pass)
+        public string Hash(string pass)
         {
             using (SHA1Managed sha1 = new SHA1Managed())
             {
@@ -56,13 +56,15 @@ namespace QuizManager.Pages.Users
             bool userCheck = UserLogin.InputUserName == User.Username;
             var inputPass = Hash(UserLogin.InputPassword);
             bool passCheck = inputPass == User.Password;
-            if (userCheck && passCheck)
-            {
+            bool accessCheck = UserLogin.Access == User.Access; 
+            if (userCheck && passCheck && accessCheck){
+
                 return Redirect("/Quizzes/Index"); 
             }
             else
             {
-                throw new CustomAttributeFormatException("Its all wrong");
+                throw new Exception("Failed login");
+                return Page();
             }
             
         }

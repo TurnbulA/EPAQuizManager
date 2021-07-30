@@ -32,11 +32,14 @@
             <tbody>
                 @foreach (var item in Model.Question)
                 {
-                    <tr class="questionItem">
-                        <td class="questionName">
-                            @Html.DisplayFor(model => item.QuestionContent)
-                        </td>
-                    </tr>
+                    @if (item.QuizRef == Model.Quiz.QuizId)
+                    {
+                        <tr class="questionItem">
+                            <td class="questionName">
+                                @Html.DisplayFor(model => item.QuestionContent)
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

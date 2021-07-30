@@ -22,6 +22,7 @@ namespace QuizManager.Pages.Quizzes
         [BindProperty]
         public Quiz Quiz { get; set; }
         public IList<Question> Question { get; set; }
+        public IList<Answer> Answer { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -31,6 +32,7 @@ namespace QuizManager.Pages.Quizzes
 
             Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizId == id);
             Question = await _context.Question.ToListAsync();
+            
             if (Quiz == null)
             {
                 return NotFound();
@@ -47,17 +49,31 @@ namespace QuizManager.Pages.Quizzes
 
             Quiz = await _context.Quiz.FindAsync(id);
             Question = await _context.Question.ToListAsync();
+            Answer = await _context.Answer.ToListAsync();
             if (Quiz != null)
             {
+                
                 foreach (var question in Question)
                 {
-                    _context.Question.Remove(question);
+                    if (question.QuizRef == Quiz.QuizId)
+                    {
+                        foreach (var answer in Answer)
+                        {
+                            if (answer.QuestionRef == question.ID)
+                            {
+                                _context.Answer.Remove(answer);
+                            }
+
+                        }
+                        _context.Question.Remove(question);
+                    }
+                    
                 }
                 _context.Quiz.Remove(Quiz);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/");
+            return Redirect("/Quizzes/Index");
         }
     }
 }

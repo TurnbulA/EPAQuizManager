@@ -12,12 +12,12 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="UserLogin.InputUserName" class="control-label"></label>
-                <input asp-for="UserLogin.InputUserName" class="form-control inputUsername"/>
+                <input asp-for="UserLogin.InputUserName" class="form-control inputUsername" required />
                 <span asp-validation-for="UserLogin.InputUserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UserLogin.InputPassword" class="control-label"></label>
-                <input asp-for="UserLogin.InputPassword" class="form-control"/>
+                <input asp-for="UserLogin.InputPassword" class="form-control" required />
                 <span asp-validation-for="UserLogin.InputPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
