@@ -15,5 +15,6 @@ namespace QuizManager.Data
         }
 
         public DbSet<QuizManager.Models.User> User { get; set; }
+        public DbSet<QuizManager.Models.UserLogin> UserLogin { get; set; }
     }
 }
