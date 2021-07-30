@@ -115,11 +115,11 @@ namespace QuizManager.Data
         {
             return new()
             {
-                new User {UserId = 1,Username = "Test 1",FirstName = "User1",LastName = "Name1",Password = "Pass",Access = "admin",Status = null},
-                new User {UserId = 2,Username = "Test 2",FirstName = "User2",LastName = "Name2",Password = "Pass",Access = "user",Status = null},
-                new User {UserId = 3,Username = "Test 3",FirstName = "User3",LastName = "Name3",Password = "Pass",Access = "read",Status = null},
-                new User {UserId = 4,Username = "Test 4",FirstName = "User4",LastName = "Name4",Password = "Pass",Access = "admin",Status = null},
-                new User {UserId = 5,Username = "Test 5",FirstName = "User5",LastName = "Name5",Password = "Pass",Access = "read",Status = null},
+                new User {UserId = 1,Username = "Test 1",FirstName = "User1",LastName = "Name1",Password = "Pass",Access = "admin"},
+                new User {UserId = 2,Username = "Test 2",FirstName = "User2",LastName = "Name2",Password = "Pass",Access = "user"},
+                new User {UserId = 3,Username = "Test 3",FirstName = "User3",LastName = "Name3",Password = "Pass",Access = "read"},
+                new User {UserId = 4,Username = "Test 4",FirstName = "User4",LastName = "Name4",Password = "Pass",Access = "admin"},
+                new User {UserId = 5,Username = "Test 5",FirstName = "User5",LastName = "Name5",Password = "Pass",Access = "read"},
             };
         }
     }

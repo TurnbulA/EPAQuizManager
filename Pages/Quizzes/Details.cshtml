@@ -23,6 +23,7 @@
     <p>
         <a asp-page="/Questions/Create">Create a new Question</a>
     </p>
+
     <dl>
         <table class="table">
             <thead>
@@ -69,6 +70,7 @@
 
 
 <script>
+
     quizItem = [...document.querySelectorAll(".newQuestion")]
     quizItem.forEach(item => {
         item.addEventListener("click", (e) => {
@@ -100,4 +102,21 @@
             count += 1;
         })
     });
+    buttons = document.querySelectorAll(".res");
+    buttons.forEach(button => {
+        console.log(button.innerHTML);
+        button.addEventListener("click", (e) => {
+            rights = localStorage.getItem("rights");
+            if (rights != "Edit") {
+                if (button.innerHTML == "Details" && rights == "View") {
+                    return;
+                } else {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.");
+                }
+            }
+
+
+        })
+    })
 </script>

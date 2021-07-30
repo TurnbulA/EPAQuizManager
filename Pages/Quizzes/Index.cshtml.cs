@@ -13,17 +13,43 @@ namespace QuizManager.Pages.Quizzes
     public class IndexModel : PageModel
     {
         private readonly QuizManager.Data.QuizContext _context;
+        private readonly QuizManager.Data.UserContext _userContext;
+        public string QuizSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public IndexModel(QuizManager.Data.QuizContext context)
+        public IndexModel(QuizManager.Data.QuizContext context, QuizManager.Data.UserContext userContext)
         {
             _context = context;
+            _userContext = userContext;
         }
+        
 
         public IList<Quiz> Quiz { get;set; }
-
-        public async Task OnGetAsync()
+        public UserLogin UserLogin { get; set; }
+        public async Task OnGetAsync(string sortOrder, string searchString)
         {
-            Quiz = await _context.Quiz.ToListAsync();
+            QuizSort = sortOrder == "Quiz" ? "quiz_desc" : "Quiz";
+
+            CurrentFilter = searchString;
+
+            IQueryable<Quiz> quizIQ = from q in _context.Quiz
+                select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                quizIQ = quizIQ.Where(q => q.QuizName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "Quiz":
+                    quizIQ = quizIQ.OrderBy(q => q.QuizName);
+                    break;
+                case "quiz_desc":
+                    quizIQ = quizIQ.OrderByDescending(q => q.QuizName);
+                    break;
+            }
+            Quiz = await quizIQ.AsNoTracking().ToListAsync();
+            
         }
     }
 }

@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data;
 using QuizManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuizManager.Pages.Quizzes
 {
+    
     public class EditModel : PageModel
     {
         private readonly QuizManager.Data.QuizContext _context;
