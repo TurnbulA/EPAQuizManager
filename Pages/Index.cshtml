@@ -6,6 +6,15 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
+    <button class="btn btn-primary login">Please Login</button>
+
 </div>
+
+<script>
+    login = document.querySelector(".login");
+    login.addEventListener("click", e => {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = "/Users/Index";
+    });
+</script>
