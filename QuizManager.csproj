@@ -8,9 +8,6 @@
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Pages\Login\Index.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AzureFunctions.TestHelpers" Version="3.2.83" />
@@ -36,16 +33,5 @@
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Login\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Login\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Login\Index.cshtml" />
-  </ItemGroup>
 
 </Project>
