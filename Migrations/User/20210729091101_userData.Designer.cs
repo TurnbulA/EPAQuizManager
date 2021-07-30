@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizManager.Data;
 
 namespace QuizManager.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20210729091101_userData")]
+    partial class userData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,35 +39,15 @@ namespace QuizManager.Migrations.User
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("QuizManager.Models.UserLogin", b =>
-                {
-                    b.Property<int>("LoginId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Access")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InputPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InputUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LoginId");
-
-                    b.ToTable("UserLogin");
                 });
 #pragma warning restore 612, 618
         }

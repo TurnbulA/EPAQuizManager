@@ -15,8 +15,8 @@ namespace QuizManager.Models
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Access { get; set; }
-        public string Status { get; set; }
     }
 }

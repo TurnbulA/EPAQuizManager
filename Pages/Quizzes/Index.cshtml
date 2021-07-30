@@ -10,6 +10,16 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get" class="searchForm">
+    <div class="form-actions no-color">
+        <p>
+            Search:
+            <input type="text" name="SearchString" class="searchInput" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-page="./Index">Show Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -27,7 +37,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.QuizId" class="res">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.QuizId" class="res">Details</a> |
+                <a asp-page="./Details" asp-route-id="@item.QuizId">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.QuizId" class="res" style="color: red">Delete</a> 
             </td>
         </tr>
@@ -37,9 +47,10 @@
 <script>
     buttons = document.querySelectorAll(".res");
     buttons.forEach(button => {
-        button.addEventListener("click",(e) => {
+        button.addEventListener("click", (e) => {
             rights = localStorage.getItem("rights");
-            if (rights != "admin" && rights != "user") {
+            if (rights != "Edit") {
+                console.log("active");
                 e.preventDefault();
                 alert("You do not have the correct access for this.");
             }

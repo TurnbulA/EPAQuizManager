@@ -19,26 +19,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Login/Index">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Quizzes/Index">Quiz List</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Questions/Index">Question List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Answers/Index">Answer List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">Accounts</a>
-                        </li>
                     </ul>
                 </div>
-                <div class="nav-link user"></div>
+                <div class="nav-link user">
+                    
+                </div>
             </div>
         </nav>
-        
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -58,29 +51,32 @@
     <script>
         window.addEventListener("load", () => {
             user = localStorage.getItem("username");
-            usertext = document.querySelector(".user")
+            if (user) {
+                localStorage.setItem("status", "Active");
+            }
+            usertext = document.querySelector(".user");
             if (user == null) {
                 usertext.innerHTML += "";
             }
             else {
                 usertext.innerHTML += user;
             }
-            
+
         })
         document.querySelector(".user").addEventListener("click", () => {
             if (confirm("Logout?")) {
                 localStorage.clear();
-                window.location.href = "..";
-
+                window.location.href = "/Users/Index";
             }
         })
         document.querySelectorAll(".nav-link").forEach(button => {
-            rights = localStorage.getItem("rights");
-            status = localStorage.getItem("status");
             button.addEventListener("click", (e) => {
+                rights = localStorage.getItem("rights");
+                status = localStorage.getItem("status");
                 text = e.target.innerHTML;
                 if (button.innerHTML == "Login" && status == "Active") {
-                    e.preventDefault()
+                    console.log("Active");
+                    e.preventDefault();
                     alert("You are already logged in");
                 }
                 if (button.innerHTML == "Login") {
@@ -88,19 +84,7 @@
                 }
                 if (status == "null") {
                     e.preventDefault();
-                    alert("You need to be logged in to access this")
-                }
-                if (text == "Accounts" && rights != "admin") {
-                    e.preventDefault();
-                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges")                    
-                }
-                if (text == "Answer List" && rights =="read") {
-                    e.preventDefault();
-                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
-                }
-                if (text == "Question List" && rights == "read") {
-                    e.preventDefault();
-                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
+                    alert("You need to be logged in to access this");
                 }
             })
         })
@@ -108,3 +92,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

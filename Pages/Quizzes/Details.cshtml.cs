@@ -18,10 +18,9 @@ namespace QuizManager.Pages.Quizzes
         {
             _context = context;
         }
-
         public Quiz Quiz { get; set; }
         public IList<Question> Question { get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, string sortOrder, string searchString)
         {
             if (id == null)
             {

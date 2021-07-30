@@ -25,8 +25,9 @@ namespace QuizManager
             try
             {
                 var context = services.GetRequiredService<QuizContext>();
+                var userContext = services.GetRequiredService<UserContext>();
                 context.Database.EnsureCreated();
-                // DbInitializer.Initialize(context);
+                DbInitializer.Initialize(userContext);
             }
             catch (Exception ex)
             {

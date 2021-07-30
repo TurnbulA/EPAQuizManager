@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Answer.AnswerType" class="control-label"></label>
-                <select asp-for="Answer.AnswerType" class="form-control answerTypeSelect" required readonly>
+                <select asp-for="Answer.AnswerType" class="form-control answerTypeSelect" required>
                     <option disabled selected value="" class="answerTypeOption">--Select an Option--</option>
                     <option value="Correct" class="answerTypeOption">Correct</option>
                     <option value="Incorrect" class="answerTypeOption">Incorrect</option>
@@ -58,8 +58,6 @@
         questionContent.value = sessionStorage.getItem("questionContent");
         questionRef.value = sessionStorage.getItem("questionRef");
         returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
-<<<<<<< Updated upstream
-=======
         if (sessionStorage.getItem("answerType")) {
             answerType = sessionStorage.getItem("answerType");
             answerSelect = document.querySelector(".answerTypeSelect");
@@ -72,6 +70,5 @@
             newOpt.innerHTML = answerType;
             answerSelect.appendChild(newOpt);
         }
->>>>>>> Stashed changes
     });
 </script>

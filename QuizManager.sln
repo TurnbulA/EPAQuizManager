@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager", "QuizManager.csproj", "{F040C437-E7C7-447E-9BED-B3D5494C4E55}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Test", "..\QuizManager.Test\QuizManager.Test.csproj", "{A24F7690-46B8-4733-92CD-B61D79B589FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Test", "..\QuizManager.Test\QuizManager.Test.csproj", "{1EC7D1F9-892D-4BE0-84FA-087571F0C5FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{F040C437-E7C7-447E-9BED-B3D5494C4E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F040C437-E7C7-447E-9BED-B3D5494C4E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F040C437-E7C7-447E-9BED-B3D5494C4E55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A24F7690-46B8-4733-92CD-B61D79B589FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A24F7690-46B8-4733-92CD-B61D79B589FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A24F7690-46B8-4733-92CD-B61D79B589FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A24F7690-46B8-4733-92CD-B61D79B589FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC7D1F9-892D-4BE0-84FA-087571F0C5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC7D1F9-892D-4BE0-84FA-087571F0C5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC7D1F9-892D-4BE0-84FA-087571F0C5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC7D1F9-892D-4BE0-84FA-087571F0C5FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
